@@ -1,0 +1,157 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+// Struktur data Proyek
+type Proyek struct {
+	Nama      string
+	Deskripsi string
+	Teknologi []string
+	Kategori  string
+	Tanggal   string
+	Kesulitan string
+}
+
+// Menambah proyek baru
+func TambahProyek(proyek []Proyek, nama, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []Proyek {
+	proyekBaru := Proyek{
+		Nama:      nama,
+		Deskripsi: deskripsi,
+		Teknologi: teknologi,
+		Kategori:  kategori,
+		Tanggal:   tanggal,
+		Kesulitan: kesulitan,
+	}
+	return append(proyek, proyekBaru)
+}
+
+// Mengubah proyek berdasarkan nama lama
+func UbahProyek(proyek []Proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []Proyek {
+	for i, p := range proyek {
+		if p.Nama == namaLama {
+			proyek[i] = Proyek{
+				Nama:      namaBaru,
+				Deskripsi: deskripsi,
+				Teknologi: teknologi,
+				Kategori:  kategori,
+				Tanggal:   tanggal,
+				Kesulitan: kesulitan,
+			}
+		}
+	}
+	return proyek
+}
+
+// Menghapus proyek berdasarkan nama
+func HapusProyek(proyek []Proyek, nama string) []Proyek {
+	var result []Proyek
+	for _, p := range proyek {
+		if p.Nama != nama {
+			result = append(result, p)
+		}
+	}
+	return result
+}
+
+// Menampilkan semua proyek
+func TampilkanProyek(proyek []Proyek) {
+	if len(proyek) == 0 {
+		fmt.Println("Tidak ada proyek yang tersedia.")
+		return
+	}
+	fmt.Println("Daftar Proyek:")
+	for _, p := range proyek {
+		fmt.Printf("Nama: %s\nDeskripsi: %s\nKategori: %s\nTanggal: %s\nKesulitan: %s\nTeknologi: %v\n\n", p.Nama, p.Deskripsi, p.Kategori, p.Tanggal, p.Kesulitan, p.Teknologi)
+	}
+}
+
+// Tampilan menu utama
+func tampilkanMenu() {
+	fmt.Println("\n=== APLIKASI PORTOFOLIO DATA SCIENCE ===")
+	fmt.Println("[1] Tambah Proyek")
+	fmt.Println("[2] Ubah Proyek")
+	fmt.Println("[3] Hapus Proyek")
+	fmt.Println("[4] Tampilkan Semua Proyek")
+	fmt.Println("[0] Keluar")
+	fmt.Println("-----------------------------------------")
+	fmt.Print("Pilih menu: ")
+}
+
+func main() {
+	var proyek []Proyek
+
+	for {
+		tampilkanMenu()
+		var pilihan int
+		fmt.Scanln(&pilihan)
+
+		switch pilihan {
+		case 1:
+			// Tambah proyek
+			var nama, deskripsi, kategori, kesulitan, tanggal string
+			var teknologiStr string
+			fmt.Print("Nama Proyek: ")
+			fmt.Scanln(&nama)
+			fmt.Print("Deskripsi Proyek: ")
+			fmt.Scanln(&deskripsi)
+			fmt.Print("Kategori: ")
+			fmt.Scanln(&kategori)
+			fmt.Print("Kesulitan: ")
+			fmt.Scanln(&kesulitan)
+			fmt.Print("Tanggal (YYYY-MM-DD): ")
+			fmt.Scanln(&tanggal)
+			fmt.Print("Teknologi (pisahkan dengan koma): ")
+			fmt.Scanln(&teknologiStr)
+			teknologi := strings.Split(teknologiStr, ",")
+
+			proyek = TambahProyek(proyek, nama, deskripsi, kategori, kesulitan, tanggal, teknologi)
+			fmt.Println("Proyek berhasil ditambahkan!")
+
+		case 2:
+			// Ubah proyek
+			var namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string
+			var teknologiStr string
+			fmt.Print("Nama proyek yang ingin diubah: ")
+			fmt.Scanln(&namaLama)
+			fmt.Print("Nama Baru: ")
+			fmt.Scanln(&namaBaru)
+			fmt.Print("Deskripsi Baru: ")
+			fmt.Scanln(&deskripsi)
+			fmt.Print("Kategori Baru: ")
+			fmt.Scanln(&kategori)
+			fmt.Print("Kesulitan Baru: ")
+			fmt.Scanln(&kesulitan)
+			fmt.Print("Tanggal Baru (YYYY-MM-DD): ")
+			fmt.Scanln(&tanggal)
+			fmt.Print("Teknologi Baru (pisahkan dengan koma): ")
+			fmt.Scanln(&teknologiStr)
+			teknologi := strings.Split(teknologiStr, ",")
+
+			proyek = UbahProyek(proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologi)
+			fmt.Println("Proyek berhasil diubah!")
+
+		case 3:
+			// Hapus proyek
+			var nama string
+			fmt.Print("Nama proyek yang ingin dihapus: ")
+			fmt.Scanln(&nama)
+			proyek = HapusProyek(proyek, nama)
+			fmt.Println("Proyek berhasil dihapus!")
+
+		case 4:
+			// Tampilkan proyek
+			TampilkanProyek(proyek)
+
+		case 0:
+			// Keluar
+			fmt.Println("Terima kasih telah menggunakan aplikasi ini!")
+			return
+
+		default:
+			fmt.Println("Pilihan tidak valid, coba lagi.")
+		}
+	}
+}
