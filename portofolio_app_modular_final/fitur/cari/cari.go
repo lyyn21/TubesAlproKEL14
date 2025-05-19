@@ -3,7 +3,6 @@ package cari
 import (
     "fmt"
     "strings"
-    "portofolio_app/data"
 )
 
 func Jalankan(proyek []data.Proyek) {
