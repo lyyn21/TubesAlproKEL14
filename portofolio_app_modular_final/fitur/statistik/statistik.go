@@ -2,7 +2,6 @@ package statistik
 
 import (
     "fmt"
-    "portofolio_app/data"
 )
 
 func Jalankan(proyek []data.Proyek) {
