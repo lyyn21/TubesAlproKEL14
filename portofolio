@@ -47,27 +47,40 @@ func UbahProyek(proyek []Proyek, namaLama, namaBaru, deskripsi, kategori, kesuli
 
 // Menghapus proyek berdasarkan nama
 func HapusProyek(proyek []Proyek, nama string) []Proyek {
-	var result []Proyek
-	for _, p := range proyek {
-		if p.Nama != nama {
-			result = append(result, p)
-		}
-	}
-	return result
-}
-
-// Mencari proyek berdasarkan nama atau kategori
-func CariProyek(proyek []Proyek, keyword string, byKategori bool) []Proyek {
 	var hasil []Proyek
 	for _, p := range proyek {
+		if p.Nama != nama {
+			hasil = append(hasil, p)
+		}
+	}
+	return hasil
+}
+
+// Mencari proyek berdasarkan nama atau kategori menggunakan Binary Search
+func BinarySearch(proyek []Proyek, keyword string, byKategori bool) []Proyek {
+	var hasil []Proyek
+	low, high := 0, len(proyek)-1
+
+	// Pastikan data sudah terurut
+	SelectionSort(proyek) // Mengurutkan terlebih dahulu menggunakan Selection Sort
+
+	for low <= high {
+		mid := (low + high) / 2
+		var bandingkan string
+
 		if byKategori {
-			if strings.ToLower(p.Kategori) == strings.ToLower(keyword) {
-				hasil = append(hasil, p)
-			}
+			bandingkan = proyek[mid].Kategori
 		} else {
-			if strings.ToLower(p.Nama) == strings.ToLower(keyword) {
-				hasil = append(hasil, p)
-			}
+			bandingkan = proyek[mid].Nama
+		}
+
+		if strings.ToLower(bandingkan) == strings.ToLower(keyword) {
+			hasil = append(hasil, proyek[mid])
+			break
+		} else if strings.ToLower(bandingkan) < strings.ToLower(keyword) {
+			low = mid + 1
+		} else {
+			high = mid - 1
 		}
 	}
 	return hasil
@@ -203,14 +216,14 @@ func main() {
 			if mode == 1 {
 				fmt.Print("Masukkan nama: ")
 				fmt.Scanln(&keyword)
-				hasil := CariProyek(proyek, keyword, false)
+				hasil := BinarySearch(proyek, keyword, false) // Menggunakan Binary Search untuk nama
 				for _, p := range hasil {
 					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
 				}
 			} else {
 				fmt.Print("Masukkan kategori: ")
 				fmt.Scanln(&keyword)
-				hasil := CariProyek(proyek, keyword, true)
+				hasil := BinarySearch(proyek, keyword, true) // Menggunakan Binary Search untuk kategori
 				for _, p := range hasil {
 					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
 				}
@@ -222,9 +235,9 @@ func main() {
 			fmt.Print("Pilih: ")
 			fmt.Scanln(&mode)
 			if mode == 1 {
-				SelectionSort(proyek)
+				SelectionSort(proyek) // Menggunakan Selection Sort untuk kesulitan
 			} else {
-				InsertionSort(proyek)
+				InsertionSort(proyek) // Menggunakan Insertion Sort untuk tanggal
 			}
 			fmt.Println("Proyek berhasil diurutkan!")
 
