@@ -1,0 +1,44 @@
+//menambah proyek
+func TambahProyek(proyek []models.Proyek, nama, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []models.Proyek {
+	proyekBaru := models.Proyek{
+		Nama:      nama,
+		Deskripsi: deskripsi,
+		Teknologi: teknologi,
+		Kategori:  kategori,
+		Tanggal:   tanggal,
+		Kesulitan: kesulitan,
+	}
+	return append(proyek, proyekBaru)
+}
+//mengubah proyek
+func UbahProyek(proyek []models.Proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []models.Proyek {
+	for i, p := range proyek {
+		if p.Nama == namaLama {
+			proyek[i] = models.Proyek{
+				Nama:      namaBaru,
+				Deskripsi: deskripsi,
+				Teknologi: teknologi,
+				Kategori:  kategori,
+				Tanggal:   tanggal,
+				Kesulitan: kesulitan,
+			}
+		}
+	}
+	return proyek
+}
+//menghapus proyek
+func UbahProyek(proyek []models.Proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []models.Proyek {
+	for i, p := range proyek {
+		if p.Nama == namaLama {
+			proyek[i] = models.Proyek{
+				Nama:      namaBaru,
+				Deskripsi: deskripsi,
+				Teknologi: teknologi,
+				Kategori:  kategori,
+				Tanggal:   tanggal,
+				Kesulitan: kesulitan,
+			}
+		}
+	}
+	return proyek
+}
