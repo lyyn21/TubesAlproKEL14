@@ -56,11 +56,11 @@ func HapusProyek(proyek []Proyek, nama string) []Proyek {
 	return result
 }
 
-// Mencari proyek berdasarkan nama atau kategori menggunakan Sequential Search
-func CariProyek(proyek []Proyek, keyword string, kategori bool) []Proyek {
+// Mencari proyek berdasarkan nama atau kategori
+func CariProyek(proyek []Proyek, keyword string, byKategori bool) []Proyek {
 	var hasil []Proyek
 	for _, p := range proyek {
-		if kategori {
+		if byKategori {
 			if strings.ToLower(p.Kategori) == strings.ToLower(keyword) {
 				hasil = append(hasil, p)
 			}
@@ -74,7 +74,7 @@ func CariProyek(proyek []Proyek, keyword string, kategori bool) []Proyek {
 }
 
 // Mengurutkan proyek berdasarkan kesulitan (Selection Sort)
-func SelectionSort(proyek []Proyek, key string) {
+func SelectionSort(proyek []Proyek) {
 	for i := 0; i < len(proyek)-1; i++ {
 		minIdx := i
 		for j := i + 1; j < len(proyek); j++ {
@@ -86,7 +86,7 @@ func SelectionSort(proyek []Proyek, key string) {
 	}
 }
 
-// Mengurutkan proyek berdasarkan tanggal pembuatan (Insertion Sort)
+// Mengurutkan proyek berdasarkan tanggal (Insertion Sort)
 func InsertionSort(proyek []Proyek) {
 	for i := 1; i < len(proyek); i++ {
 		current := proyek[i]
@@ -99,16 +99,34 @@ func InsertionSort(proyek []Proyek) {
 	}
 }
 
-// Menampilkan jumlah proyek per kategori
-func StatistikKategori(proyek []Proyek) map[string]int {
-	kategoriCount := make(map[string]int)
-	for _, p := range proyek {
-		kategoriCount[p.Kategori]++
+// Menampilkan semua proyek
+func TampilkanSemuaProyek(proyek []Proyek) {
+	if len(proyek) == 0 {
+		fmt.Println("Belum ada proyek yang terdaftar.")
+		return
 	}
-	return kategoriCount
+	fmt.Println("\n--- Daftar Semua Proyek ---")
+	for _, p := range proyek {
+		fmt.Printf("Nama      : %s\n", p.Nama)
+		fmt.Printf("Deskripsi : %s\n", p.Deskripsi)
+		fmt.Printf("Kategori  : %s\n", p.Kategori)
+		fmt.Printf("Kesulitan : %s\n", p.Kesulitan)
+		fmt.Printf("Tanggal   : %s\n", p.Tanggal)
+		fmt.Printf("Teknologi : %s\n", strings.Join(p.Teknologi, ", "))
+		fmt.Println("------------------------------")
+	}
 }
 
-// Tampilan menu utama
+// Menampilkan statistik kategori
+func StatistikKategori(proyek []Proyek) map[string]int {
+	statistik := make(map[string]int)
+	for _, p := range proyek {
+		statistik[p.Kategori]++
+	}
+	return statistik
+}
+
+// Menu utama
 func tampilkanMenu() {
 	fmt.Println("\n=== APLIKASI PORTOFOLIO DATA SCIENCE ===")
 	fmt.Println("[1] Tambah Proyek")
@@ -117,8 +135,8 @@ func tampilkanMenu() {
 	fmt.Println("[4] Cari Proyek")
 	fmt.Println("[5] Urutkan Proyek")
 	fmt.Println("[6] Statistik Kategori")
+	fmt.Println("[7] Lihat Semua Proyek")
 	fmt.Println("[0] Keluar")
-	fmt.Println("-----------------------------------------")
 	fmt.Print("Pilih menu: ")
 }
 
@@ -132,83 +150,25 @@ func main() {
 
 		switch pilihan {
 		case 1:
-			// Tambah proyek
-			var nama, deskripsi, kategori, kesulitan, tanggal string
-			var teknologiStr string
-
-			// Validasi input nama
-			for {
-				fmt.Print("Nama Proyek: ")
-				fmt.Scanln(&nama)
-				if strings.TrimSpace(nama) != "" {
-					break
-				} else {
-					fmt.Println("Nama proyek tidak boleh kosong. Coba lagi.")
-				}
-			}
-
-			// Validasi deskripsi
-			for {
-				fmt.Print("Deskripsi Proyek: ")
-				fmt.Scanln(&deskripsi)
-				if strings.TrimSpace(deskripsi) != "" {
-					break
-				} else {
-					fmt.Println("Deskripsi proyek tidak boleh kosong. Coba lagi.")
-				}
-			}
-
-			// Validasi kategori
-			for {
-				fmt.Print("Kategori: ")
-				fmt.Scanln(&kategori)
-				if strings.TrimSpace(kategori) != "" {
-					break
-				} else {
-					fmt.Println("Kategori tidak boleh kosong. Coba lagi.")
-				}
-			}
-
-			// Validasi kesulitan
-			for {
-				fmt.Print("Kesulitan: ")
-				fmt.Scanln(&kesulitan)
-				if strings.TrimSpace(kesulitan) != "" {
-					break
-				} else {
-					fmt.Println("Kesulitan tidak boleh kosong. Coba lagi.")
-				}
-			}
-
-			// Validasi tanggal
-			for {
-				fmt.Print("Tanggal (YYYY-MM-DD): ")
-				fmt.Scanln(&tanggal)
-				if len(tanggal) == 10 {
-					break
-				} else {
-					fmt.Println("Tanggal tidak valid. Pastikan formatnya YYYY-MM-DD. Coba lagi.")
-				}
-			}
-
-			// Validasi teknologi
-			for {
-				fmt.Print("Teknologi (pisahkan dengan koma): ")
-				fmt.Scanln(&teknologiStr)
-				teknologi := strings.Split(teknologiStr, ",")
-				if len(teknologi) > 0 && strings.TrimSpace(teknologiStr) != "" {
-					proyek = TambahProyek(proyek, nama, deskripsi, kategori, kesulitan, tanggal, teknologi)
-					fmt.Println("Proyek berhasil ditambahkan!")
-					break
-				} else {
-					fmt.Println("Teknologi tidak boleh kosong. Coba lagi.")
-				}
-			}
+			var nama, deskripsi, kategori, kesulitan, tanggal, teknologiStr string
+			fmt.Print("Nama Proyek: ")
+			fmt.Scanln(&nama)
+			fmt.Print("Deskripsi: ")
+			fmt.Scanln(&deskripsi)
+			fmt.Print("Kategori: ")
+			fmt.Scanln(&kategori)
+			fmt.Print("Kesulitan: ")
+			fmt.Scanln(&kesulitan)
+			fmt.Print("Tanggal (YYYY-MM-DD): ")
+			fmt.Scanln(&tanggal)
+			fmt.Print("Teknologi (dipisahkan koma): ")
+			fmt.Scanln(&teknologiStr)
+			teknologi := strings.Split(teknologiStr, ",")
+			proyek = TambahProyek(proyek, nama, deskripsi, kategori, kesulitan, tanggal, teknologi)
+			fmt.Println("Proyek berhasil ditambahkan!")
 
 		case 2:
-			// Ubah proyek
-			var namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string
-			var teknologiStr string
+			var namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologiStr string
 			fmt.Print("Nama proyek yang ingin diubah: ")
 			fmt.Scanln(&namaLama)
 			fmt.Print("Nama Baru: ")
@@ -219,17 +179,15 @@ func main() {
 			fmt.Scanln(&kategori)
 			fmt.Print("Kesulitan Baru: ")
 			fmt.Scanln(&kesulitan)
-			fmt.Print("Tanggal Baru (YYYY-MM-DD): ")
+			fmt.Print("Tanggal Baru: ")
 			fmt.Scanln(&tanggal)
-			fmt.Print("Teknologi Baru (pisahkan dengan koma): ")
+			fmt.Print("Teknologi Baru (dipisah koma): ")
 			fmt.Scanln(&teknologiStr)
 			teknologi := strings.Split(teknologiStr, ",")
-
 			proyek = UbahProyek(proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologi)
 			fmt.Println("Proyek berhasil diubah!")
 
 		case 3:
-			// Hapus proyek
 			var nama string
 			fmt.Print("Nama proyek yang ingin dihapus: ")
 			fmt.Scanln(&nama)
@@ -237,67 +195,55 @@ func main() {
 			fmt.Println("Proyek berhasil dihapus!")
 
 		case 4:
-			// Cari proyek
-			var keyword, kategori string
-			var pilihCari int
-			fmt.Println("Cari proyek berdasarkan:")
-			fmt.Println("1. Nama")
-			fmt.Println("2. Kategori")
+			var keyword string
+			var mode int
+			fmt.Println("Cari berdasarkan: 1. Nama  2. Kategori")
 			fmt.Print("Pilih: ")
-			fmt.Scanln(&pilihCari)
-
-			if pilihCari == 1 {
-				fmt.Print("Masukkan nama proyek: ")
+			fmt.Scanln(&mode)
+			if mode == 1 {
+				fmt.Print("Masukkan nama: ")
 				fmt.Scanln(&keyword)
 				hasil := CariProyek(proyek, keyword, false)
-				fmt.Println("Proyek ditemukan:")
 				for _, p := range hasil {
 					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
 				}
-			} else if pilihCari == 2 {
+			} else {
 				fmt.Print("Masukkan kategori: ")
-				fmt.Scanln(&kategori)
-				hasil := CariProyek(proyek, kategori, true)
-				fmt.Println("Proyek ditemukan:")
+				fmt.Scanln(&keyword)
+				hasil := CariProyek(proyek, keyword, true)
 				for _, p := range hasil {
 					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
 				}
 			}
 
 		case 5:
-			// Urutkan proyek
-			var pilihUrut int
-			fmt.Println("Urutkan proyek berdasarkan:")
-			fmt.Println("1. Kesulitan")
-			fmt.Println("2. Tanggal")
+			var mode int
+			fmt.Println("Urutkan berdasarkan: 1. Kesulitan  2. Tanggal")
 			fmt.Print("Pilih: ")
-			fmt.Scanln(&pilihUrut)
-
-			if pilihUrut == 1 {
-				SelectionSort(proyek, "kesulitan")
-			} else if pilihUrut == 2 {
+			fmt.Scanln(&mode)
+			if mode == 1 {
+				SelectionSort(proyek)
+			} else {
 				InsertionSort(proyek)
 			}
-			fmt.Println("Proyek setelah diurutkan:")
-			for _, p := range proyek {
-				fmt.Printf("%s - %s - %s\n", p.Nama, p.Kategori, p.Tanggal)
-			}
+			fmt.Println("Proyek berhasil diurutkan!")
 
 		case 6:
-			// Statistik kategori
-			statistik := StatistikKategori(proyek)
+			stat := StatistikKategori(proyek)
 			fmt.Println("Statistik Kategori:")
-			for kategori, count := range statistik {
-				fmt.Printf("%s: %d proyek\n", kategori, count)
+			for k, v := range stat {
+				fmt.Printf("%s: %d proyek\n", k, v)
 			}
 
+		case 7:
+			TampilkanSemuaProyek(proyek)
+
 		case 0:
-			// Keluar
-			fmt.Println("Terima kasih telah menggunakan aplikasi ini!")
+			fmt.Println("Terima kasih telah menggunakan aplikasi ini.")
 			return
 
 		default:
-			fmt.Println("Pilihan tidak valid, coba lagi.")
+			fmt.Println("Pilihan tidak valid.")
 		}
 	}
 }
