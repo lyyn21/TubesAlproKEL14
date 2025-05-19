@@ -3,7 +3,6 @@ package crud
 import (
     "fmt"
     "strings"
-    "portofolio_app/data"
 )
 
 func Tambah(proyek []data.Proyek) []data.Proyek {
