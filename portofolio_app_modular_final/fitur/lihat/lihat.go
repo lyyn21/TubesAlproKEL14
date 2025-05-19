@@ -1,12 +1,18 @@
-package lihat
+package fitur
 
 import (
-    "fmt"
+	"fmt"
+	"strings"
+	"portofolio_app/data"
 )
 
-func TampilkanSemua(proyek []data.Proyek) {
-    fmt.Println("Daftar Semua Proyek:")
-    for _, p := range proyek {
-        fmt.Printf("Nama: %s | Kategori: %s | Tanggal: %s\n", p.Nama, p.Kategori, p.Tanggal)
-    }
+func Tampilkan(proyek []data.Proyek) {
+	if len(proyek) == 0 {
+		fmt.Println("Belum ada proyek.")
+		return
+	}
+	for _, p := range proyek {
+		fmt.Printf("Nama: %s\nDeskripsi: %s\nKategori: %s\nKesulitan: %s\nTanggal: %s\nTeknologi: %s\n", p.Nama, p.Deskripsi, p.Kategori, p.Kesulitan, p.Tanggal, strings.Join(p.Teknologi, ", "))
+		fmt.Println("-----------------------------------")
+	}
 }
