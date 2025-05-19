@@ -1,0 +1,19 @@
+import (
+	"strings"
+)
+
+func CariProyek(proyek []models.Proyek, keyword string, kategori bool) []models.Proyek {
+	var hasil []models.Proyek
+	for _, p := range proyek {
+		if kategori {
+			if strings.ToLower(p.Kategori) == strings.ToLower(keyword) {
+				hasil = append(hasil, p)
+			}
+		} else {
+			if strings.ToLower(p.Nama) == strings.ToLower(keyword) {
+				hasil = append(hasil, p)
+			}
+		}
+	}
+	return hasil
+}
