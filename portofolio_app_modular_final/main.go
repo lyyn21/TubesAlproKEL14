@@ -2,13 +2,6 @@ package main
 
 import (
     "fmt"
-    "portofolio_app/data"
-    "portofolio_app/fitur/crud"
-    "portofolio_app/fitur/cari"
-    "portofolio_app/fitur/urut"
-    "portofolio_app/fitur/statistik"
-    "portofolio_app/fitur/lihat"
-    "portofolio_app/menu"
 )
 
 func main() {
