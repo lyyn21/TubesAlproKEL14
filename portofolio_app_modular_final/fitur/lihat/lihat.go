@@ -2,7 +2,6 @@ package lihat
 
 import (
     "fmt"
-    "portofolio_app/data"
 )
 
 func TampilkanSemua(proyek []data.Proyek) {
