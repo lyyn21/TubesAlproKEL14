@@ -27,18 +27,12 @@ func UbahProyek(proyek []models.Proyek, namaLama, namaBaru, deskripsi, kategori,
 	return proyek
 }
 //menghapus proyek
-func UbahProyek(proyek []models.Proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []models.Proyek {
-	for i, p := range proyek {
-		if p.Nama == namaLama {
-			proyek[i] = models.Proyek{
-				Nama:      namaBaru,
-				Deskripsi: deskripsi,
-				Teknologi: teknologi,
-				Kategori:  kategori,
-				Tanggal:   tanggal,
-				Kesulitan: kesulitan,
-			}
+func HapusProyek(proyek []models.Proyek, nama string) []models.Proyek {
+	var result []models.Proyek
+	for _, p := range proyek {
+		if p.Nama != nama {
+			result = append(result, p)
 		}
 	}
-	return proyek
+	return result
 }
