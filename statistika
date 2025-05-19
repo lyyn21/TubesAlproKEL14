@@ -1,0 +1,7 @@
+func StatistikKategori(proyek []models.Proyek) map[string]int {
+	kategoriCount := make(map[string]int)
+	for _, p := range proyek {
+		kategoriCount[p.Kategori]++
+	}
+	return kategoriCount
+}
