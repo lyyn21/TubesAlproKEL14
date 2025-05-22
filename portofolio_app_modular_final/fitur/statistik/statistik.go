@@ -1,15 +1,18 @@
-package fitur
+package statistik
 
 import (
-	"portofolio_app/data"
+	"portfolio-app/internal/proyek"
 	"fmt"
 )
 
-// Menampilkan statistik kategori proyek
-func StatistikKategori(proyek []data.Proyek) map[string]int {
-	statistik := make(map[string]int)
-	for _, p := range proyek {
-		statistik[p.Kategori]++
+// StatistikKategori menghitung jumlah proyek berdasarkan kategori
+func StatistikKategori(proyekList []proyek.Proyek) map[string]int {
+	return proyek.StatistikKategori(proyekList)
+}
+
+// TampilkanStatistik menampilkan statistik berdasarkan kategori
+func TampilkanStatistik(statistik map[string]int) {
+	for kategori, jumlah := range statistik {
+		fmt.Printf("%s: %d proyek\n", kategori, jumlah)
 	}
-	return statistik
 }
