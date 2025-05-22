@@ -64,7 +64,7 @@ type Proyek struct {
 
 
 
-Kesimpulan
+#### Kesimpulan
 Aplikasi Manajemen Proyek Data Science ini adalah solusi yang sederhana namun sangat efektif untuk mengelola berbagai proyek dalam bidang data science. Dengan berbagai fitur seperti menambah, mengubah, menghapus, mencari, dan mengurutkan proyek, aplikasi ini memberikan fleksibilitas dalam mengelola portofolio proyek Anda dengan cara yang terstruktur.
 
 Selain itu, aplikasi ini memungkinkan pengguna untuk dengan mudah melihat statistik berdasarkan kategori proyek yang ada, memberikan wawasan lebih mendalam mengenai distribusi proyek berdasarkan kategori tertentu. Dengan menggunakan algoritma dasar seperti Selection Sort, Insertion Sort, dan Binary Search, aplikasi ini tetap efisien meskipun menangani dataset yang relatif kecil hingga menengah.
