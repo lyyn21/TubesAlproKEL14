@@ -1,5 +1,3 @@
-// internal/crud/crud.go
-
 package crud
 
 import (
