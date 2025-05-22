@@ -1,5 +1,6 @@
 package data
 
+// Struktur data Proyek
 type Proyek struct {
 	Nama      string
 	Deskripsi string
@@ -8,3 +9,4 @@ type Proyek struct {
 	Tanggal   string
 	Kesulitan string
 }
+
