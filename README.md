@@ -1,4 +1,4 @@
- # Aplikasi Manajemen Proyek Data Science
+# Aplikasi Manajemen Proyek Data Science
 
 ## Deskripsi
 
@@ -48,17 +48,22 @@ Aplikasi ini dirancang untuk membantu Anda mengelola proyek-proyek dalam bidang 
 
 Dengan aplikasi ini, pengguna dapat dengan mudah **mengorganisir**, **menilai**, dan **menunjukkan** kemampuan mereka dalam bidang data science melalui proyek-proyek yang telah mereka kerjakan. Aplikasi ini sangat bermanfaat bagi pemula yang ingin membangun portofolio proyek yang komprehensif dan profesional untuk mendukung karier mereka di industri data science.
 
-### Contoh Struktur `Proyek`
+## Kesimpulan
 
-```go
-type Proyek struct {
-    Nama      string
-    Deskripsi string
-    Teknologi []string
-    Kategori  string
-    Tanggal   string
-    Kesulitan string
-}
+Aplikasi Manajemen Proyek Data Science ini adalah solusi yang sederhana namun sangat efektif untuk mengelola berbagai proyek dalam bidang data science. Dengan berbagai fitur seperti menambah, mengubah, menghapus, mencari, dan mengurutkan proyek, aplikasi ini memberikan fleksibilitas dalam mengelola portofolio proyek Anda dengan cara yang terstruktur.
+
+Selain itu, aplikasi ini memungkinkan pengguna untuk dengan mudah melihat statistik berdasarkan kategori proyek yang ada, memberikan wawasan lebih mendalam mengenai distribusi proyek berdasarkan kategori tertentu. Dengan menggunakan algoritma dasar seperti **Selection Sort**, **Insertion Sort**, dan **Binary Search**, aplikasi ini tetap efisien meskipun menangani dataset yang relatif kecil hingga menengah.
+
+Aplikasi ini dibangun dengan menggunakan bahasa pemrograman Go (Golang), yang terkenal dengan kinerja tinggi dan kemudahan penggunaannya. Meskipun aplikasi ini berbasis teks, antarmukanya sangat intuitif dan mudah digunakan, menjadikannya pilihan yang baik bagi mereka yang ingin memulai dengan alat yang sederhana dan efektif untuk mengelola proyek.
+
+**Harapan kami**, aplikasi ini dapat membantu Anda dalam mengorganisasi dan mengelola proyek-proyek data science dengan lebih mudah dan terstruktur. Kami juga terbuka untuk kontribusi dari komunitas pengembang guna terus meningkatkan aplikasi ini.
+
+Terima kasih telah menggunakan aplikasi ini. Semoga bermanfaat untuk kebutuhan manajemen proyek Anda!
+
+---
+
+## Kelompok 14
+
 
 
 Kelompok 14
