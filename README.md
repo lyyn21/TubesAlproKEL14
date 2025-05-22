@@ -1,4 +1,4 @@
-# Aplikasi Manajemen Proyek Data Science
+ # Aplikasi Manajemen Proyek Data Science
 
 ## Deskripsi
 
@@ -6,7 +6,7 @@ Aplikasi ini dirancang untuk membantu Anda mengelola proyek-proyek dalam bidang 
 
 ## Fitur Utama
 
-1. **Manajemen Proyek Data Science**:
+### 1. **Manajemen Proyek Data Science**
    
    Aplikasi ini memungkinkan pengguna untuk mengelola proyek data science mereka. Fitur yang tersedia mencakup:
    
@@ -22,26 +22,26 @@ Aplikasi ini dirancang untuk membantu Anda mengelola proyek-proyek dalam bidang 
    - **Tanggal pembuatan proyek**
    - **Tingkat kesulitan** (misalnya: Mudah, Menengah, Sulit)
 
-2. **Pencatatan Keahlian yang Dipelajari**:
+### 2. **Pencatatan Keahlian yang Dipelajari**
 
    Aplikasi ini memungkinkan pengguna untuk mencatat **keahlian teknis** yang dipelajari selama pengerjaan proyek. Ini termasuk teknologi dan alat yang digunakan, yang dapat membantu pengguna untuk memantau dan mengevaluasi perkembangan keterampilan mereka di bidang data science.
 
-3. **Pencarian Proyek yang Efisien**:
-
+### 3. **Pencarian Proyek yang Efisien**
+   
    Pengguna dapat mencari proyek berdasarkan **nama** atau **kategori** dengan menggunakan dua metode pencarian yang efisien:
    
    - **Sequential Search**: Digunakan untuk pencarian linear berdasarkan nama proyek.
    - **Binary Search**: Digunakan untuk pencarian lebih cepat berdasarkan kategori proyek (setelah data terurut).
 
-4. **Pengurutan Proyek**:
-
+### 4. **Pengurutan Proyek**
+   
    Aplikasi ini menyediakan fitur pengurutan proyek berdasarkan dua kriteria:
    
    - **Tingkat Kesulitan**: Mengurutkan proyek berdasarkan tingkat kesulitan menggunakan **Selection Sort**.
    - **Tanggal Pembuatan**: Mengurutkan proyek berdasarkan tanggal pembuatan menggunakan **Insertion Sort**.
 
-5. **Statistik Kategori Proyek**:
-
+### 5. **Statistik Kategori Proyek**
+   
    Aplikasi ini menampilkan statistik jumlah proyek yang telah diselesaikan berdasarkan kategori tertentu, seperti **Machine Learning**, **Data Visualization**, dan lainnya. Fitur ini memberikan wawasan yang jelas mengenai keahlian yang telah dipelajari dan dikuasai oleh pengguna.
 
 ---
@@ -60,19 +60,5 @@ type Proyek struct {
     Kesulitan string
 }
 
-
-
-
-
-#### Kesimpulan
-Aplikasi Manajemen Proyek Data Science ini adalah solusi yang sederhana namun sangat efektif untuk mengelola berbagai proyek dalam bidang data science. Dengan berbagai fitur seperti menambah, mengubah, menghapus, mencari, dan mengurutkan proyek, aplikasi ini memberikan fleksibilitas dalam mengelola portofolio proyek Anda dengan cara yang terstruktur.
-
-Selain itu, aplikasi ini memungkinkan pengguna untuk dengan mudah melihat statistik berdasarkan kategori proyek yang ada, memberikan wawasan lebih mendalam mengenai distribusi proyek berdasarkan kategori tertentu. Dengan menggunakan algoritma dasar seperti Selection Sort, Insertion Sort, dan Binary Search, aplikasi ini tetap efisien meskipun menangani dataset yang relatif kecil hingga menengah.
-
-Aplikasi ini dibangun dengan menggunakan bahasa pemrograman Go (Golang), yang terkenal dengan kinerja tinggi dan kemudahan penggunaannya. Meskipun aplikasi ini berbasis teks, antarmukanya sangat intuitif dan mudah digunakan, menjadikannya pilihan yang baik bagi mereka yang ingin memulai dengan alat yang sederhana dan efektif untuk mengelola proyek.
-
-Harapan kami, aplikasi ini dapat membantu Anda dalam mengorganisasi dan mengelola proyek-proyek data science dengan lebih mudah dan terstruktur. Kami juga terbuka untuk kontribusi dari komunitas pengembang guna terus meningkatkan aplikasi ini.
-
-Terima kasih telah menggunakan aplikasi ini. Semoga bermanfaat untuk kebutuhan manajemen proyek Anda!
 
 Kelompok 14
