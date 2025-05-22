@@ -1,11 +1,15 @@
 package fitur
 
-import "portofolio_app/data"
+import (
+	"portofolio_app/data"
+	"fmt"
+)
 
+// Menampilkan statistik kategori proyek
 func StatistikKategori(proyek []data.Proyek) map[string]int {
-	stat := make(map[string]int)
+	statistik := make(map[string]int)
 	for _, p := range proyek {
-		stat[p.Kategori]++
+		statistik[p.Kategori]++
 	}
-	return stat
+	return statistik
 }
