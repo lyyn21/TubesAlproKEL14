@@ -1,47 +1,71 @@
-# Aplikasi Manajemen Portofolio Data Science untuk Pemula
+# Aplikasi Manajemen Proyek Data Science
 
 ## Deskripsi
 
-Aplikasi ini dirancang untuk membantu pengguna dalam mencatat dan memantau proyek-proyek data science yang telah mereka kerjakan. Tujuan utama aplikasi ini adalah untuk membangun portofolio yang kuat dan terstruktur, yang dapat digunakan untuk menunjukkan kemampuan serta pengalaman dalam bidang data science. Aplikasi ini sangat cocok bagi pemula yang ingin memantau perkembangan keterampilan mereka melalui proyek yang telah diselesaikan.
+Aplikasi ini dirancang untuk membantu Anda mengelola proyek-proyek dalam bidang data science, seperti menyimpan, mengubah, menghapus, mencari, mengurutkan, dan menampilkan statistik dari proyek-proyek tersebut. Aplikasi ini menggunakan bahasa pemrograman Go (Golang) dan memanfaatkan struktur data serta algoritma sederhana untuk operasionalisasi data.
 
 ## Fitur Utama
-1. **Tambah Proyek**: Menambah proyek baru ke dalam daftar proyek.
-2. **Ubah Proyek**: Mengubah informasi proyek yang sudah ada.
-3. **Hapus Proyek**: Menghapus proyek berdasarkan nama.
-4. **Cari Proyek**:
-   - **Pencarian berdasarkan Nama** (Sequential Search)
-   - **Pencarian berdasarkan Kategori** (Binary Search)
-5. **Urutkan Proyek**:
-   - Mengurutkan proyek berdasarkan **Kesulitan** (menggunakan Selection Sort)
-   - Mengurutkan proyek berdasarkan **Tanggal** (menggunakan Insertion Sort)
-6. **Statistik Kategori**: Menampilkan statistik mengenai jumlah proyek berdasarkan kategori.
-7. **Lihat Semua Proyek**: Menampilkan daftar semua proyek yang ada.
 
-## Struktur Data
-Aplikasi ini menggunakan struktur data `Proyek`, yang memiliki beberapa atribut penting, seperti:
+1. **Manajemen Proyek Data Science**:
 
-- **Nama**: Nama proyek.
-- **Deskripsi**: Deskripsi singkat proyek.
-- **Teknologi**: Teknologi yang digunakan dalam proyek.
-- **Kategori**: Kategori proyek (misal: Machine Learning, Data Analysis, dll).
-- **Tanggal**: Tanggal pembuatan proyek.
-- **Kesulitan**: Tingkat kesulitan proyek (misal: Mudah, Menengah, Sulit).
+   * Pengguna dapat **menambahkan**, **mengubah**, dan **menghapus** proyek data science yang telah mereka buat. Setiap proyek dapat mencakup informasi penting seperti:
 
+     * Nama proyek
+     * Deskripsi proyek
+     * Teknologi yang digunakan
+     * Kategori proyek (misalnya, Machine Learning, Data Visualization)
+     * Tanggal pembuatan
+     * Tingkat kesulitan
 
-### Penjelasan Fungsi
+2. **Pencatatan Keahlian yang Dipelajari**:
 
-1. **Fitur CRUD (Create, Read, Update, Delete)**:
-   - Aplikasi ini memungkinkan Anda untuk menambah proyek baru, mengubah proyek yang ada, dan menghapus proyek. Setiap operasi CRUD ini menggunakan slice untuk menambah, mengganti, atau menghapus elemen dalam koleksi proyek.
-   
-2. **Pencarian dan Pengurutan**:
-   - Pencarian dilakukan dengan metode **Sequential Search** (untuk nama proyek) dan **Binary Search** (untuk kategori proyek setelah data diurutkan).
-   - Pengurutan menggunakan **Selection Sort** untuk mengurutkan berdasarkan kesulitan dan **Insertion Sort** untuk mengurutkan berdasarkan tanggal. Meskipun algoritma ini efisien untuk dataset kecil hingga sedang, Anda bisa menggantinya dengan algoritma lain jika diperlukan.
+   * Aplikasi memungkinkan pengguna untuk mencatat **keahlian teknis** yang dipelajari selama pengerjaan proyek. Ini termasuk teknologi dan alat yang digunakan, yang membantu pengguna untuk memantau dan mengevaluasi perkembangan keterampilan mereka di bidang data science.
 
-3. **Statistik Kategori**:
-   - Fungsi statistik akan membantu Anda untuk melihat seberapa banyak proyek yang dimiliki dalam setiap kategori. Ini dapat berguna untuk melacak distribusi proyek Anda.
+3. **Pencarian Proyek yang Efisien**:
 
-Dengan penjelasan ini, pengguna bisa lebih memahami bagaimana aplikasi bekerja dan bagaimana cara berinteraksi dengan antarmuka berbasis teks untuk mengelola proyek-proyek data science mereka.
+   * Pengguna dapat mencari proyek berdasarkan **nama** atau **kategori** proyek dengan menggunakan dua metode pencarian yang efisien:
+
+     * **Sequential Search** (untuk pencarian linear).
+     * **Binary Search** (untuk pencarian lebih cepat pada data yang sudah terurut).
+
+4. **Pengurutan Proyek**:
+
+   * Pengguna dapat mengurutkan daftar proyek berdasarkan:
+
+     * **Tingkat Kesulitan**: Menggunakan algoritma **Selection Sort**.
+     * **Tanggal Pembuatan**: Menggunakan algoritma **Insertion Sort**.
+
+5. **Statistik Kategori Proyek**:
+
+   * Aplikasi ini menampilkan statistik jumlah proyek yang telah diselesaikan berdasarkan kategori tertentu, seperti **Machine Learning**, **Data Visualization**, dan lainnya. Fitur ini memberikan gambaran yang jelas mengenai keahlian yang telah dipelajari dan dikuasai oleh pengguna.
+
+---
+
+Dengan aplikasi ini, pengguna dapat dengan mudah **mengorganisir**, **menilai**, dan **menunjukkan** kemampuan mereka dalam bidang data science melalui proyek-proyek yang telah mereka kerjakan. Aplikasi ini memberikan alat yang berguna bagi pemula untuk membangun portofolio yang komprehensif dan profesional, yang akan membantu mereka mengejar peluang di industri data science.
+
+### Contoh Struktur `Proyek`
+
+```go
+type Proyek struct {
+    Nama      string
+    Deskripsi string
+    Teknologi []string
+    Kategori  string
+    Tanggal   string
+    Kesulitan string
+}
+
+## Kesimpulan
+
+Aplikasi Manajemen Proyek Data Science ini adalah solusi yang sederhana namun efektif untuk mengelola berbagai proyek dalam bidang data science. Dengan fitur-fitur seperti menambah, mengubah, menghapus, mencari, dan mengurutkan proyek, aplikasi ini memberikan fleksibilitas dalam mengelola portofolio proyek Anda.
+
+Selain itu, aplikasi ini memungkinkan pengguna untuk dengan mudah melihat statistik berdasarkan kategori proyek yang ada, memberikan wawasan lebih dalam mengenai distribusi proyek berdasarkan kategori tertentu. Dengan menggunakan algoritma dasar seperti *Selection Sort*, *Insertion Sort*, dan *Binary Search*, aplikasi ini berjalan efisien meskipun dengan dataset yang relatif kecil hingga menengah.
+
+Aplikasi ini dibuat dengan menggunakan bahasa pemrograman Go (Golang), yang dikenal dengan kinerja tinggi dan kemudahan penggunaannya. Meskipun aplikasinya berbasis teks, ia tetap memberikan antarmuka yang intuitif dan mudah digunakan.
+
+**Harapan kami**, aplikasi ini dapat membantu Anda dalam mengorganisasi dan mengelola proyek-proyek data science dengan lebih mudah dan terstruktur, serta memberikan ruang bagi kontribusi lebih lanjut dari komunitas pengembang.
+
+Terima kasih telah menggunakan aplikasi ini. Semoga bermanfaat untuk kebutuhan manajemen proyek Anda!
 
 
 ## Kelompok 14
-
