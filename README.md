@@ -5,60 +5,43 @@
 Aplikasi ini dirancang untuk membantu pengguna dalam mencatat dan memantau proyek-proyek data science yang telah mereka kerjakan. Tujuan utama aplikasi ini adalah untuk membangun portofolio yang kuat dan terstruktur, yang dapat digunakan untuk menunjukkan kemampuan serta pengalaman dalam bidang data science. Aplikasi ini sangat cocok bagi pemula yang ingin memantau perkembangan keterampilan mereka melalui proyek yang telah diselesaikan.
 
 ## Fitur Utama
-
-1. **Manajemen Proyek Data Science**:
-   
-   Pengguna dapat **menambahkan**, **mengubah**, dan **menghapus** proyek data science yang telah mereka buat. Setiap proyek dapat mencakup informasi penting seperti:
-   - Nama proyek
-   - Deskripsi proyek
-   - Teknologi yang digunakan
-   - Kategori proyek (misalnya: Machine Learning, Data Visualization, dll)
-   - Tanggal pembuatan
-   - Tingkat kesulitan
-
-2. **Pencatatan Keahlian yang Dipelajari**:
-   
-   Aplikasi memungkinkan pengguna untuk mencatat **keahlian teknis** yang dipelajari selama pengerjaan proyek. Ini termasuk teknologi dan alat yang digunakan, yang membantu pengguna untuk memantau dan mengevaluasi perkembangan keterampilan mereka di bidang data science.
-
-3. **Pencarian Proyek yang Efisien**:
-   
-   Pengguna dapat mencari proyek berdasarkan **nama** atau **kategori** proyek dengan menggunakan dua metode pencarian yang efisien:
-   - **Sequential Search** (untuk pencarian berdasarkan nama proyek secara linear).
-   - **Binary Search** (untuk pencarian yang lebih cepat pada kategori proyek setelah data diurutkan).
-
-4. **Pengurutan Proyek**:
-   
-   Pengguna dapat mengurutkan daftar proyek berdasarkan:
-   - **Tingkat Kesulitan**: Menggunakan algoritma **Selection Sort** untuk mengurutkan proyek berdasarkan tingkat kesulitan.
-   - **Tanggal Pembuatan**: Menggunakan algoritma **Insertion Sort** untuk mengurutkan proyek berdasarkan tanggal pembuatan.
-
-5. **Statistik Kategori Proyek**:
-
-   Aplikasi ini menampilkan statistik jumlah proyek yang telah diselesaikan berdasarkan kategori tertentu, seperti **Machine Learning**, **Data Visualization**, dan lainnya. Fitur ini memberikan gambaran yang jelas mengenai keahlian yang telah dipelajari dan dikuasai oleh pengguna.
-
-6. **Lihat Semua Proyek**:
-
-   Pengguna dapat melihat daftar semua proyek yang telah terdaftar, yang mencakup informasi rinci seperti nama, deskripsi, teknologi, kategori, kesulitan, dan tanggal pembuatan.
-
----
-
-Dengan aplikasi ini, pengguna dapat dengan mudah **mengorganisir**, **menilai**, dan **menunjukkan** kemampuan mereka dalam bidang data science melalui proyek-proyek yang telah mereka kerjakan. Aplikasi ini memberikan alat yang berguna bagi pemula untuk membangun portofolio yang komprehensif dan profesional, yang akan membantu mereka mengejar peluang di industri data science.
-
-## Output Menu Utama
-
-Ketika aplikasi dijalankan, menu utama yang ditampilkan adalah sebagai berikut:
-
-
-### Pilihan Menu:
-
-1. **Tambah Proyek**: Menambahkan proyek baru ke dalam daftar proyek.
-2. **Ubah Proyek**: Mengubah proyek yang sudah ada berdasarkan nama.
+1. **Tambah Proyek**: Menambah proyek baru ke dalam daftar proyek.
+2. **Ubah Proyek**: Mengubah informasi proyek yang sudah ada.
 3. **Hapus Proyek**: Menghapus proyek berdasarkan nama.
-4. **Cari Proyek**: Mencari proyek berdasarkan nama atau kategori.
-5. **Urutkan Proyek**: Mengurutkan proyek berdasarkan tingkat kesulitan atau tanggal pembuatan.
-6. **Statistik Kategori**: Menampilkan statistik jumlah proyek berdasarkan kategori.
-7. **Lihat Semua Proyek**: Menampilkan seluruh daftar proyek yang telah ditambahkan.
-8. **Keluar**: Menutup aplikasi.
+4. **Cari Proyek**:
+   - **Pencarian berdasarkan Nama** (Sequential Search)
+   - **Pencarian berdasarkan Kategori** (Binary Search)
+5. **Urutkan Proyek**:
+   - Mengurutkan proyek berdasarkan **Kesulitan** (menggunakan Selection Sort)
+   - Mengurutkan proyek berdasarkan **Tanggal** (menggunakan Insertion Sort)
+6. **Statistik Kategori**: Menampilkan statistik mengenai jumlah proyek berdasarkan kategori.
+7. **Lihat Semua Proyek**: Menampilkan daftar semua proyek yang ada.
+
+## Struktur Data
+Aplikasi ini menggunakan struktur data `Proyek`, yang memiliki beberapa atribut penting, seperti:
+
+- **Nama**: Nama proyek.
+- **Deskripsi**: Deskripsi singkat proyek.
+- **Teknologi**: Teknologi yang digunakan dalam proyek.
+- **Kategori**: Kategori proyek (misal: Machine Learning, Data Analysis, dll).
+- **Tanggal**: Tanggal pembuatan proyek.
+- **Kesulitan**: Tingkat kesulitan proyek (misal: Mudah, Menengah, Sulit).
+
+
+### Penjelasan Fungsi
+
+1. **Fitur CRUD (Create, Read, Update, Delete)**:
+   - Aplikasi ini memungkinkan Anda untuk menambah proyek baru, mengubah proyek yang ada, dan menghapus proyek. Setiap operasi CRUD ini menggunakan slice untuk menambah, mengganti, atau menghapus elemen dalam koleksi proyek.
+   
+2. **Pencarian dan Pengurutan**:
+   - Pencarian dilakukan dengan metode **Sequential Search** (untuk nama proyek) dan **Binary Search** (untuk kategori proyek setelah data diurutkan).
+   - Pengurutan menggunakan **Selection Sort** untuk mengurutkan berdasarkan kesulitan dan **Insertion Sort** untuk mengurutkan berdasarkan tanggal. Meskipun algoritma ini efisien untuk dataset kecil hingga sedang, Anda bisa menggantinya dengan algoritma lain jika diperlukan.
+
+3. **Statistik Kategori**:
+   - Fungsi statistik akan membantu Anda untuk melihat seberapa banyak proyek yang dimiliki dalam setiap kategori. Ini dapat berguna untuk melacak distribusi proyek Anda.
+
+Dengan penjelasan ini, pengguna bisa lebih memahami bagaimana aplikasi bekerja dan bagaimana cara berinteraksi dengan antarmuka berbasis teks untuk mengelola proyek-proyek data science mereka.
+
 
 ## Kelompok 14
 
