@@ -1,21 +1,27 @@
 package fitur
 
-import "portofolio_app/data"
+import (
+	"portofolio_app/data"
+)
 
+// Mengurutkan proyek berdasarkan kesulitan (Selection Sort)
 func SortingSelection(proyek []data.Proyek) {
-	for i := 0; i < len(proyek)-1; i++ {
-		min := i
-		for j := i + 1; j < len(proyek); j++ {
-			if proyek[j].Kesulitan < proyek[min].Kesulitan {
-				min = j
+	n := len(proyek)
+	for i := 0; i < n-1; i++ {
+		minIdx := i
+		for j := i + 1; j < n; j++ {
+			if proyek[j].Kesulitan < proyek[minIdx].Kesulitan {
+				minIdx = j
 			}
 		}
-		proyek[i], proyek[min] = proyek[min], proyek[i]
+		proyek[i], proyek[minIdx] = proyek[minIdx], proyek[i]
 	}
 }
 
+// Mengurutkan proyek berdasarkan tanggal (Insertion Sort)
 func SortingInsertion(proyek []data.Proyek) {
-	for i := 1; i < len(proyek); i++ {
+	n := len(proyek)
+	for i := 1; i < n; i++ {
 		current := proyek[i]
 		j := i - 1
 		for j >= 0 && proyek[j].Tanggal > current.Tanggal {
