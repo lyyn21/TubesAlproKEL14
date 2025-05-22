@@ -1,29 +1,25 @@
+// internal/crud/crud.go
+
 package crud
 
-import "portofolio_app/data"
+import (
+	"portfolio-app/internal/proyek"
+	"fmt"
+)
 
-// Menambah proyek baru
-func Tambah(proyek []data.Proyek, p data.Proyek) []data.Proyek {
-	return append(proyek, p)
+// TambahProyek menambahkan proyek baru
+func TambahProyek(proyekList []proyek.Proyek, nama, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []proyek.Proyek {
+	proyekBaru := proyek.NewProyek(nama, deskripsi, kategori, kesulitan, tanggal, teknologi)
+	return proyek.TambahProyek(proyekList, *proyekBaru)
 }
 
-// Mengubah proyek berdasarkan nama lama
-func Ubah(proyek []data.Proyek, namaLama string, pBaru data.Proyek) []data.Proyek {
-	for i, p := range proyek {
-		if p.Nama == namaLama {
-			proyek[i] = pBaru
-		}
-	}
-	return proyek
+// UbahProyek mengubah proyek berdasarkan nama
+func UbahProyek(proyekList []proyek.Proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal string, teknologi []string) []proyek.Proyek {
+	return proyek.UbahProyek(proyekList, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologi)
 }
 
-// Menghapus proyek berdasarkan nama
-func Hapus(proyek []data.Proyek, nama string) []data.Proyek {
-	var hasil []data.Proyek
-	for _, p := range proyek {
-		if p.Nama != nama {
-			hasil = append(hasil, p)
-		}
-	}
-	return hasil
+// HapusProyek menghapus proyek berdasarkan nama
+func HapusProyek(proyekList []proyek.Proyek, nama string) []proyek.Proyek {
+	return proyek.HapusProyek(proyekList, nama)
 }
+
