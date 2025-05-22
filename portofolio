@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -56,31 +57,58 @@ func HapusProyek(proyek []Proyek, nama string) []Proyek {
 	return hasil
 }
 
-// Mencari proyek berdasarkan nama atau kategori menggunakan Binary Search
-func BinarySearch(proyek []Proyek, keyword string, byKategori bool) []Proyek {
+// Mencari proyek berdasarkan nama (Sequential Search)
+func SequentialSearchByName(proyek []Proyek, keyword string) []Proyek {
 	var hasil []Proyek
-	low, high := 0, len(proyek)-1
+	lowerKeyword := strings.ToLower(keyword)
+	for _, p := range proyek {
+		if strings.ToLower(p.Nama) == lowerKeyword {
+			hasil = append(hasil, p)
+		}
+	}
+	return hasil
+}
 
-	// Pastikan data sudah terurut
-	SelectionSort(proyek) // Mengurutkan terlebih dahulu menggunakan Selection Sort
+// Mencari proyek berdasarkan kategori (Binary Search)
+func BinarySearchByKategori(dataUntukDitelusuri []Proyek, keyword string) []Proyek {
+	if len(dataUntukDitelusuri) == 0 {
+		return []Proyek{}
+	}
+
+	sort.Slice(dataUntukDitelusuri, func(i, j int) bool {
+		return strings.ToLower(dataUntukDitelusuri[i].Kategori) < strings.ToLower(dataUntukDitelusuri[j].Kategori)
+	})
+
+	var hasil []Proyek
+	low, high := 0, len(dataUntukDitelusuri)-1
+	targetKeyword := strings.ToLower(keyword)
+	var foundIndex = -1
 
 	for low <= high {
-		mid := (low + high) / 2
-		var bandingkan string
+		mid := low + (high-low)/2
+		midKategori := strings.ToLower(dataUntukDitelusuri[mid].Kategori)
 
-		if byKategori {
-			bandingkan = proyek[mid].Kategori
-		} else {
-			bandingkan = proyek[mid].Nama
-		}
-
-		if strings.ToLower(bandingkan) == strings.ToLower(keyword) {
-			hasil = append(hasil, proyek[mid])
+		if midKategori == targetKeyword {
+			foundIndex = mid
 			break
-		} else if strings.ToLower(bandingkan) < strings.ToLower(keyword) {
+		} else if midKategori < targetKeyword {
 			low = mid + 1
 		} else {
 			high = mid - 1
+		}
+	}
+
+	if foundIndex != -1 {
+		hasil = append(hasil, dataUntukDitelusuri[foundIndex])
+		l := foundIndex - 1
+		for l >= 0 && strings.ToLower(dataUntukDitelusuri[l].Kategori) == targetKeyword {
+			hasil = append(hasil, dataUntukDitelusuri[l])
+			l--
+		}
+		r := foundIndex + 1
+		for r < len(dataUntukDitelusuri) && strings.ToLower(dataUntukDitelusuri[r].Kategori) == targetKeyword {
+			hasil = append(hasil, dataUntukDitelusuri[r])
+			r++
 		}
 	}
 	return hasil
@@ -88,9 +116,10 @@ func BinarySearch(proyek []Proyek, keyword string, byKategori bool) []Proyek {
 
 // Mengurutkan proyek berdasarkan kesulitan (Selection Sort)
 func SelectionSort(proyek []Proyek) {
-	for i := 0; i < len(proyek)-1; i++ {
+	n := len(proyek)
+	for i := 0; i < n-1; i++ {
 		minIdx := i
-		for j := i + 1; j < len(proyek); j++ {
+		for j := i + 1; j < n; j++ {
 			if proyek[j].Kesulitan < proyek[minIdx].Kesulitan {
 				minIdx = j
 			}
@@ -101,7 +130,8 @@ func SelectionSort(proyek []Proyek) {
 
 // Mengurutkan proyek berdasarkan tanggal (Insertion Sort)
 func InsertionSort(proyek []Proyek) {
-	for i := 1; i < len(proyek); i++ {
+	n := len(proyek)
+	for i := 1; i < n; i++ {
 		current := proyek[i]
 		j := i - 1
 		for j >= 0 && proyek[j].Tanggal > current.Tanggal {
@@ -160,30 +190,66 @@ func main() {
 		tampilkanMenu()
 		var pilihan int
 		fmt.Scanln(&pilihan)
+		// fmt.Scanln() // Jika masalah input kembali, coba uncomment baris ini.
 
 		switch pilihan {
 		case 1:
+			fmt.Println("\n--- Tambah Proyek ---")
 			var nama, deskripsi, kategori, kesulitan, tanggal, teknologiStr string
+			
 			fmt.Print("Nama Proyek: ")
 			fmt.Scanln(&nama)
+			
 			fmt.Print("Deskripsi: ")
 			fmt.Scanln(&deskripsi)
+			
 			fmt.Print("Kategori: ")
 			fmt.Scanln(&kategori)
+			
 			fmt.Print("Kesulitan: ")
 			fmt.Scanln(&kesulitan)
+			
 			fmt.Print("Tanggal (YYYY-MM-DD): ")
 			fmt.Scanln(&tanggal)
+			
 			fmt.Print("Teknologi (dipisahkan koma): ")
 			fmt.Scanln(&teknologiStr)
-			teknologi := strings.Split(teknologiStr, ",")
+			
+			var teknologi []string
+			if strings.TrimSpace(teknologiStr) != "" {
+				rawTeknologi := strings.Split(teknologiStr, ",")
+				for _, t := range rawTeknologi {
+					teknologi = append(teknologi, strings.TrimSpace(t))
+				}
+			}
+			
 			proyek = TambahProyek(proyek, nama, deskripsi, kategori, kesulitan, tanggal, teknologi)
 			fmt.Println("Proyek berhasil ditambahkan!")
 
 		case 2:
+			fmt.Println("\n--- Ubah Proyek ---")
+			if len(proyek) == 0 {
+				fmt.Println("Belum ada proyek untuk diubah.")
+				continue
+			}
 			var namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologiStr string
+
 			fmt.Print("Nama proyek yang ingin diubah: ")
 			fmt.Scanln(&namaLama)
+			
+			proyekDitemukan := false
+			for _, p := range proyek {
+				if p.Nama == namaLama {
+					proyekDitemukan = true
+					break
+				}
+			}
+
+			if !proyekDitemukan {
+				fmt.Println("Proyek dengan nama tersebut tidak ditemukan.")
+				continue
+			}
+
 			fmt.Print("Nama Baru: ")
 			fmt.Scanln(&namaBaru)
 			fmt.Print("Deskripsi Baru: ")
@@ -192,61 +258,116 @@ func main() {
 			fmt.Scanln(&kategori)
 			fmt.Print("Kesulitan Baru: ")
 			fmt.Scanln(&kesulitan)
-			fmt.Print("Tanggal Baru: ")
+			fmt.Print("Tanggal Baru (YYYY-MM-DD): ")
 			fmt.Scanln(&tanggal)
 			fmt.Print("Teknologi Baru (dipisah koma): ")
 			fmt.Scanln(&teknologiStr)
-			teknologi := strings.Split(teknologiStr, ",")
+
+			var teknologi []string
+			if strings.TrimSpace(teknologiStr) != "" {
+				rawTeknologi := strings.Split(teknologiStr, ",")
+				for _, t := range rawTeknologi {
+					teknologi = append(teknologi, strings.TrimSpace(t))
+				}
+			}
 			proyek = UbahProyek(proyek, namaLama, namaBaru, deskripsi, kategori, kesulitan, tanggal, teknologi)
 			fmt.Println("Proyek berhasil diubah!")
 
 		case 3:
+			fmt.Println("\n--- Hapus Proyek ---")
+			if len(proyek) == 0 {
+				fmt.Println("Belum ada proyek untuk dihapus.")
+				continue
+			}
 			var nama string
 			fmt.Print("Nama proyek yang ingin dihapus: ")
 			fmt.Scanln(&nama)
+			
+			panjangAwal := len(proyek)
 			proyek = HapusProyek(proyek, nama)
-			fmt.Println("Proyek berhasil dihapus!")
+			if len(proyek) < panjangAwal {
+				fmt.Println("Proyek berhasil dihapus!")
+			} else {
+				fmt.Println("Proyek dengan nama tersebut tidak ditemukan.")
+			}
 
 		case 4:
-			var keyword string
+			fmt.Println("\n--- Cari Proyek ---")
+			if len(proyek) == 0 {
+				fmt.Println("Belum ada proyek untuk dicari.")
+				continue
+			}
+			fmt.Println("Cari berdasarkan: \n[1] Nama (Sequential Search)\n[2] Kategori (Binary Search)")
+			
 			var mode int
-			fmt.Println("Cari berdasarkan: 1. Nama  2. Kategori")
-			fmt.Print("Pilih: ")
+			fmt.Print("Pilih mode: ")
 			fmt.Scanln(&mode)
+            if mode != 1 && mode != 2 {
+                 fmt.Println("Pilihan mode tidak valid.")
+                 continue
+            }
+
+			var keyword string
+			var hasil []Proyek
+
 			if mode == 1 {
 				fmt.Print("Masukkan nama: ")
 				fmt.Scanln(&keyword)
-				hasil := BinarySearch(proyek, keyword, false) // Menggunakan Binary Search untuk nama
-				for _, p := range hasil {
-					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
-				}
-			} else {
+				hasil = SequentialSearchByName(proyek, keyword)
+			} else { 
 				fmt.Print("Masukkan kategori: ")
 				fmt.Scanln(&keyword)
-				hasil := BinarySearch(proyek, keyword, true) // Menggunakan Binary Search untuk kategori
-				for _, p := range hasil {
-					fmt.Printf("%s - %s\n", p.Nama, p.Kategori)
-				}
+				proyekUntukCari := make([]Proyek, len(proyek))
+				copy(proyekUntukCari, proyek) 
+				hasil = BinarySearchByKategori(proyekUntukCari, keyword)
+			}
+
+			if len(hasil) == 0 {
+				fmt.Println("Proyek tidak ditemukan.")
+			} else {
+				fmt.Println("Hasil Pencarian ("+ keyword +"):")
+				TampilkanSemuaProyek(hasil) 
 			}
 
 		case 5:
-			var mode int
-			fmt.Println("Urutkan berdasarkan: 1. Kesulitan  2. Tanggal")
-			fmt.Print("Pilih: ")
-			fmt.Scanln(&mode)
-			if mode == 1 {
-				SelectionSort(proyek) // Menggunakan Selection Sort untuk kesulitan
-			} else {
-				InsertionSort(proyek) // Menggunakan Insertion Sort untuk tanggal
+			fmt.Println("\n--- Urutkan Proyek ---")
+			if len(proyek) == 0 {
+				fmt.Println("Belum ada proyek untuk diurutkan.")
+				continue
 			}
-			fmt.Println("Proyek berhasil diurutkan!")
+			fmt.Println("Urutkan berdasarkan: \n[1] Kesulitan (Selection Sort)\n[2] Tanggal (Insertion Sort)")
+
+			var modeSort int
+			fmt.Print("Pilih mode: ")
+			fmt.Scanln(&modeSort)
+            if modeSort != 1 && modeSort != 2 {
+                 fmt.Println("Pilihan mode tidak valid.")
+                 continue
+            }
+
+			if modeSort == 1 {
+				SelectionSort(proyek)
+				fmt.Println("Proyek berhasil diurutkan berdasarkan Kesulitan!")
+			} else { 
+				InsertionSort(proyek)
+				fmt.Println("Proyek berhasil diurutkan berdasarkan Tanggal!")
+			}
+			TampilkanSemuaProyek(proyek)
 
 		case 6:
-			stat := StatistikKategori(proyek)
-			fmt.Println("Statistik Kategori:")
-			for k, v := range stat {
-				fmt.Printf("%s: %d proyek\n", k, v)
+			fmt.Println("\n--- Statistik Kategori ---")
+			if len(proyek) == 0 {
+				fmt.Println("Belum ada proyek untuk menampilkan statistik.")
+				continue
 			}
+			stat := StatistikKategori(proyek)
+			if len(stat) == 0 {
+                fmt.Println("Tidak ada kategori proyek yang terdefinisi.")
+            } else {
+                for k, v := range stat {
+				    fmt.Printf("%s: %d proyek\n", k, v)
+			    }
+            }
 
 		case 7:
 			TampilkanSemuaProyek(proyek)
